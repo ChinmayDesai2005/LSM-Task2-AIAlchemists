@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 # ENV Vars
-PORT = os.environ['PORT']
+PORT = os.environ['PORT'] or 5000
 
 from blueprints.translate.translate import translate
 
