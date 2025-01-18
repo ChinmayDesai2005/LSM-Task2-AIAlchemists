@@ -1,0 +1,50 @@
+.frontPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+    background-color: #f5f5f5;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.frontPage.zoomOut {
+    transform: scale(1.5);
+    opacity: 0;
+}
+
+.inputDiv {
+    width: 100%;
+    max-width: 600px;
+}
+
+.inputField {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.inputField input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 5px;
+}
+
+.inputField button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.inputField button:hover {
+    color: #007bff;
+}
