@@ -1,0 +1,12 @@
+[
+    {"hindi": "hin_Deva"},
+    {"marathi": "mar_Deva"},
+    {"gujarati": "guj_Gujr"},
+    {"bengali": "asm_Beng"},
+    {"oriya": "ory_Orya"},
+    {"tamil": "tam_Taml"},
+    {"malayalam": "mal_Mlym"},
+    {"kannada": "kan_Knda"},
+    {"telugu": "tel_Telu"},
+    {"punjabi": "pan_Guru"}
+]
