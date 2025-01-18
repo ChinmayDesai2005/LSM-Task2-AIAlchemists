@@ -34,6 +34,13 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
     "nodemon": "^3.1.9"
+<<<<<<< HEAD
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+=======
 >>>>>>> 80105f1fec2a2ea7e051ddc3b7ffadbf75aa7a8c
+>>>>>>> d58970363bd8c757e6bcb2b2b6509de4542bba5d
   }
 }
