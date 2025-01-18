@@ -6,6 +6,9 @@ import Profile from "./pages/profile/Profile"
 import BlogsPage from "./pages/blog_coverpage/BlogsPage"
 import Transcript from "./pages/transcript/Transcript"
 
+import Auth from "./pages/auth/Auth"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
@@ -14,11 +17,24 @@ function App() {
     <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="/Input" element={<Input />} />
         <Route path="/Profile" element={<Profile/>} />
         <Route path="/Blog" element={<BlogsPage/>} />
         <Route path="/Transcript" element={<Transcript/>} />
       </Routes>
+        <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
   )
 }

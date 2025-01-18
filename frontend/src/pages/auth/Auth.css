@@ -1,0 +1,149 @@
+.login-signup-page {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--background);
+    padding: 0 10%;
+}
+
+.login-signup-image {
+    flex: 1;
+    max-width: 40%;
+    margin-right: 5%;
+}
+
+.login-signup-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.login-signup-form-container {
+    flex: 1;
+    max-width: 40%;
+    background-color: var(--surface);
+    border-radius: 30px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border: 1px solid var(--border);
+}
+
+.login-signup-form-container h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+#login-signup-tabs .nav-link {
+    font-size: 1.25rem;
+    margin: 0;
+    background-color: var(--surface);
+    color: var(--text);
+    border-radius: 0;
+}
+
+#login-signup-tabs .nav-link:hover {
+    border: 1px solid var(--secondary);
+}
+
+.login-signup-form-container .tab-content {
+    padding-top: 1rem;
+}
+
+.brand-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.logo {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.brand-title {
+    font-size: 1.8rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Form Elements */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+button {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--background);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+button {
+    background-color: var(--secondary);
+    color: var(--text);
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Add media queries for smaller screens */
+@media (max-width: 768px) {
+    .login-signup-page {
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 5%;
+    }
+
+    .login-signup-image {
+        max-width: 80%;
+        margin-bottom: 2rem;
+    }
+
+    .login-signup-form-container {
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+
+    .login-signup-form-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .brand-title {
+        font-size: 1.5rem;
+    }
+
+    .logo {
+        width: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-signup-page {
+        padding: 0 3%;
+    }
+
+    .login-signup-form-container h2 {
+        font-size: 1.2rem;
+    }
+
+    .brand-title {
+        font-size: 1.2rem;
+    }
+}
