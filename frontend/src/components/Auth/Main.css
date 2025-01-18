@@ -1,0 +1,83 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+}
+
+form button {
+    padding: 0 30px;
+    width: auto;
+    height: 50px;
+    border-radius: 30px;
+    /* This should work */
+    font-weight: 600;
+    font-size: 1.15rem;
+    background-color: var(--secondary);
+    color: black;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+    border: solid 1px var(--background);
+    color: var(--text);
+}
+
+form button:hover {
+    background-color: var(--secondary);
+    border: solid 1px #fff;
+}
+
+.social-login {
+    margin-top: 1rem;
+    color: var(--text);
+    text-align: center;
+}
+
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+.icon-container .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.icon-container .icon:hover {
+    background-color: #f0f0f0;
+}
+
+
+.password-input-container {
+    position: relative;
+}
+
+.password-input-container input {
+    width: 100%;
+    padding-right: 3rem;
+    /* To make space for the eye icon */
+}
+
+.toggle-password-icon {
+    position: absolute;
+    top: 45%;
+    right: 1rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

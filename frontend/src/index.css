@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+  --primary: #4f46e5;
+  /* Indigo - main accent color */
+  --secondary: #3730a3;
+  /* Deep Indigo - for hover states */
+  --background: #1e1e2f;
+  /* Deep Dark Blue-Gray - main background */
+  --surface: #2d2d44;
+  /* Medium Dark Blue-Gray - for cards/inputs */
+  --text: #e2e8f0;
+  /* Light Gray - for text */
+}
+
 * {
   margin: 0;
   padding: 0;
