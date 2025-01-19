@@ -37,7 +37,7 @@ def translate_text(content, target_language):
     translated_text = tokenizer.decode(translated_tokens[0], skip_special_tokens=True)
     return translated_text
 
-@translate.route('/')
+@translate.route('/', methods=['POST'])
 def translateFromEnglish():
     # try:
     data = request.get_json()

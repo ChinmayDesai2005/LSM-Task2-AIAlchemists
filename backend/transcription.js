@@ -1,9 +1,8 @@
-const {
+import {
     GoogleGenerativeAI,
     HarmCategory,
-    HarmBlockThreshold,
-  } = require("@google/generative-ai");
-  const { GoogleAIFileManager } = require("@google/generative-ai/server");
+    HarmBlockThreshold} from "@google/generative-ai";
+  import { GoogleAIFileManager } from "@google/generative-ai/server";
   
   const apiKey = 'AIzaSyCiUJ09b-JkA-sVW4dbXUhfxBESntEIDB0';
   const genAI = new GoogleGenerativeAI(apiKey);
@@ -37,7 +36,7 @@ const {
   
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
-      systemInstruction: "Your task is to take audio files as input and generate transcripts.",
+      systemInstruction: "Do the task given to you.",
     });
   
     const generationConfig = {
@@ -60,14 +59,14 @@ const {
                 fileUri: file.uri,
               },
             },
-            { text: `Generate a transcript in ${language}` },
+            { text: "write exactly what is written" },
           ],
         },
       ],
     });
   
-    const result = await chatSession.sendMessage("Please transcribe the audio.");
+    const result = await chatSession.sendMessage("write exactly what is written");
     return result.response.text();
   }
   
-  module.exports = { generateTranscript };
+  export { generateTranscript };
