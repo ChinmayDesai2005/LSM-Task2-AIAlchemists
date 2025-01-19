@@ -169,7 +169,7 @@ app.post('/signin', async (req, res) => {
 // });
 
 
-app.post('/blog', authenticateJWT, async (req, res) => {
+app.post('/blog', async (req, res) => {
   const { title, content, language } = req.body;
 
   if (!title || !content || !language) {
