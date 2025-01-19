@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import MDEditor from "@uiw/react-md-editor";
@@ -24,6 +24,8 @@ function InputPage() {
   const handleMarkdownChange = (value) => {
     setMarkdown(value || "");
   };
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (file) {
@@ -90,17 +92,21 @@ function InputPage() {
     if (currentStage > 1) setCurrentStage(currentStage - 1);
   };
 
-  const publishBlog = () => {
-    
+  const publishBlog = async() => {
     try {
-      axios.post('http://localhost:8000/blog', {
-        title,
-        content: markdown,
-        ca
-      });
-      alert('Blog published successfully!');
-    }
-    
+    const response = await axios.post('http://localhost:8000/blog', {
+      title,
+      content: markdown,
+      language: "english",
+    });
+
+    const blogId = response.data.id; // Assuming the backend returns the new blog's ID or slug
+    alert('Blog published successfully!');
+    navigate(`/blog/${blogId}`); // Redirect to the dynamic blog page
+  } catch (error) {
+    console.error("Error publishing blog:", error);
+    alert("Failed to publish blog. Please try again.");
+  }
   };
 
   return (
