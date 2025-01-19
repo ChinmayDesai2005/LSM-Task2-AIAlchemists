@@ -2,30 +2,20 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
-<<<<<<< HEAD
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
-=======
   "type": "module",
   "scripts": {
     "test": "nodemon -r dotenv/config --experimental-json-modules index.js"
   },
->>>>>>> 80105f1fec2a2ea7e051ddc3b7ffadbf75aa7a8c
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-<<<<<<< HEAD
     "@google/generative-ai": "^0.21.0",
-    "body-parser": "^1.20.3",
-    "cors": "^2.8.5",
-    "express": "^4.21.2",
-    "multer": "^1.4.5-lts.1"
-=======
+    "multer": "^1.4.5-lts.1",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
     "cassandra-driver": "^4.7.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -33,7 +23,11 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
-    "nodemon": "^3.1.9"
->>>>>>> 80105f1fec2a2ea7e051ddc3b7ffadbf75aa7a8c
+    "nodemon": "^3.1.9",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
   }
 }
