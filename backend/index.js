@@ -5,8 +5,12 @@ import { Client } from 'cassandra-driver';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import multer from 'multer';
+import axios from 'axios';
+import { generateTranscript } from './transcription.js';
 
 dotenv.config({ path: './.env' });
+const upload = multer({dest: 'uploads/'});
 
 const app = express();
 app.use(cors({
@@ -150,18 +154,18 @@ app.post('/signin', async (req, res) => {
 });
 
 
-app.post('/blog', authenticateJWT, (req, res) => {
-  const { title, content, language } = req.body;
+// app.post('/blog', authenticateJWT, (req, res) => {
+//   const { title, content, language } = req.body;
 
-  if (!title || !content || !language) {
-    return res.status(400).json({ message: 'Title, content, and language are required' });
-  }
+//   if (!title || !content || !language) {
+//     return res.status(400).json({ message: 'Title, content, and language are required' });
+//   }
 
-  const query = 'INSERT INTO levelsupermind.blogs (id, title, content, language, dates, likes, dislikes, views) VALUES (uuid(), ?, ?, ?, toTimestamp(now()), 0, 0, 0)';
-  client.execute(query, [title, content, language], { prepare: true })
-    .then(() => res.status(201).json({ message: 'Blog created successfully' }))
-    .catch((error) => res.status(500).json({ message: 'Error creating blog', error }));
-});
+//   const query = 'INSERT INTO levelsupermind.blogs (id, title, content, language, dates, likes, dislikes, views) VALUES (uuid(), ?, ?, ?, toTimestamp(now()), 0, 0, 0)';
+//   client.execute(query, [title, content, language], { prepare: true })
+//     .then(() => res.status(201).json({ message: 'Blog created successfully' }))
+//     .catch((error) => res.status(500).json({ message: 'Error creating blog', error }));
+// });
 
 
 app.post('/blog', authenticateJWT, async (req, res) => {
@@ -171,20 +175,54 @@ app.post('/blog', authenticateJWT, async (req, res) => {
     return res.status(400).json({ message: 'Title, content, and language are required' });
   }
 
-  const createQuery = 'INSERT INTO levelsupermind.blogs (id, title, content, language, dates, likes, dislikes, views) VALUES (uuid(), ?, ?, ?, toTimestamp(now()), 0, 0, 0) RETURNING id';
-  const fetchQuery = 'SELECT * FROM levelsupermind.blogs WHERE id = ?';
-
   try {
-    const result = await client.execute(createQuery, [title, content, language], { prepare: true });
-    const newBlogId = result.rows[0].id;
-    const createdBlog = await fetchBlogById(newBlogId);
+    // Beautify the markdown content
+    const beautifyResponse = await axios.post('http://localhost:5000/v1/beautify/markdown', { content });
+    const beautifiedContent = beautifyResponse.data.content;
 
+    // Translate the beautified content
+    const translateResponse = await axios.post(
+      'http://localhost:5000/v1/translate/',
+      { content: beautifiedContent },
+      { headers: { 'Content-Type': 'application/json' } } 
+    );
+
+    const translations = translateResponse.data.translations;
+
+    // Create blogs in the database
+    const createdBlogs = [];
+
+    for (const translation of translations) {
+      const newId = uuidv4();
+      const insertQuery = `
+        INSERT INTO levelsupermind.blogs (id, title, content, language, dates, likes, dislikes, views) 
+        VALUES (?, ?, ?, ?, toTimestamp(now()), 0, 0, 0)
+      `;
+
+      await client.execute(insertQuery, [newId, title, translation.content, translation.language], { prepare: true });
+
+      const blogEntry = {
+        id: newId,
+        title,
+        content: translation.content,
+        language: translation.language,
+        dates: new Date(),
+        likes: 0,
+        dislikes: 0,
+        views: 0,
+      };
+
+      createdBlogs.push(blogEntry);
+    }
+
+    // Respond with the created blogs
     res.status(201).json({
-      message: 'Blog created successfully',
-      blog: createdBlog,
+      message: 'Blogs created successfully',
+      blogs: createdBlogs,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error creating blog', error });
+    console.error('Error creating blogs:', error.response?.data || error.message);
+    res.status(500).json({ message: 'Error creating blogs', error });
   }
 });
 
@@ -269,6 +307,27 @@ app.post('/blog/:id/dislike', async (req, res) => {
     res.json({ message: 'Blog disliked successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Error incrementing dislikes', error });
+  }
+});
+
+app.post("/transcribe", upload.single("audio"), async (req, res) => {
+  const file = req.file;
+  const { language } = req.body;
+
+  if (!file) {
+    return res.status(400).json({ error: "Audio file is required." });
+  }
+
+  if (!language) {
+    return res.status(400).json({ error: "Language is required." });
+  }
+
+  try {
+    const transcript = await generateTranscript(file.path, file.mimetype, language);
+    res.json({ transcript });
+  } catch (error) {
+    console.error("Error generating transcript:", error);
+    res.status(500).json({ error: "Failed to generate transcript." });
   }
 });
 
