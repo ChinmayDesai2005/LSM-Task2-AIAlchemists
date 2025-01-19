@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import multer from 'multer';
 import axios from 'axios';
 import { generateTranscript } from './transcription.js';
+import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config({ path: './.env' });
 const upload = multer({dest: 'uploads/'});
@@ -168,7 +169,7 @@ app.post('/signin', async (req, res) => {
 // });
 
 
-app.post('/blog', authenticateJWT, async (req, res) => {
+app.post('/blog', async (req, res) => {
   const { title, content, language } = req.body;
 
   if (!title || !content || !language) {
